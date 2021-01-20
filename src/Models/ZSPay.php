@@ -1,10 +1,10 @@
 <?php
 
-namespace Dayglor\Z4Money\Models;
+namespace Dayglor\ZSPay\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Z4money extends Model
+class ZSPay extends Model
 {
     //
     protected $fillable = ['name', 'email', 'json', 'url'];

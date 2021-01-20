@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateZ4moneysTable extends Migration
+class CreateZSPaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateZ4moneysTable extends Migration
      */
     public function up()
     {
-        Schema::create('z4money_logs', function (Blueprint $table) {
+        Schema::create('ZSPay_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('action');
             $table->string('url');
@@ -31,6 +31,6 @@ class CreateZ4moneysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('z4moneys');
+        Schema::dropIfExists('ZSPays');
     }
 }

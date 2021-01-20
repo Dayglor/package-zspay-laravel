@@ -1,26 +1,26 @@
 <?php
 
-namespace Dayglor\Z4Money\Http\Controllers;
+namespace Dayglor\ZSPay\Http\Controllers;
 use App\Http\Controllers\Controller;
-use Dayglor\Z4Money\Models\Z4money;
+use Dayglor\ZSPay\Models\ZSPay;
 use Illuminate\Http\Request;
 
-class Z4moneyController extends Controller
+class ZSPayController extends Controller
 {
     private static $uri = 'https://api.zsystems.com.br/';
     private static $devuri = 'https://api.zsystems.com.br/';
 
     public function index()
     {
-    	return view('z4money::contact');
+    	return view('ZSPay::contact');
     }
 
     private static function makeRequest( $action, $type, $data = false){
 
         //phpinfo();
         //die();  
-        $token = env('Z4_TOKEN', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635');
-        $env = env('Z4_ENV', 'development');
+        $token = env('ZSPayToken', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635');
+        $env = env('ZSPayEnviroment', 'development');
         $url = SELF::$uri;
 
         if(!$token){ throw new \Error('Nenhum token está definido'); }
