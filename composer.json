@@ -1,0 +1,19 @@
+{
+    "name": "dayglor/z4money",
+    "description": "Pacote para integrar laravel com a API Z4Money",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dayglor",
+            "email": "dayglor@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Dayglor\\Z4Money\\": "src/"
+        }
+    }
+}
