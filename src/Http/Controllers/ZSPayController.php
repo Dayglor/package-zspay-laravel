@@ -59,10 +59,7 @@ class Z4moneyController extends Controller
         ]);
 
         $output = curl_exec($ch);
-        // if(curl_error($ch)){
-        //     dd(curl_error($ch));
-        // }
-        // dd($output);
+    
         curl_close($ch);
 
         return json_decode($output);
