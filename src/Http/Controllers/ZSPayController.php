@@ -1,26 +1,34 @@
 <?php
 
-namespace Dayglor\ZSPay\Http\Controllers;
+/**
+ * @docs https://docs.zspay.com.br/
+ * @docs Plano - https://docs.zspay.com.br/#plans
+ * @docs Assinatura - https://docs.zspay.com.br/#subscription
+ * @docs Cliente - https://docs.zspay.com.br/#client
+ */
+
+namespace Dayglor\Z4Money\Http\Controllers;
 use App\Http\Controllers\Controller;
-use Dayglor\ZSPay\Models\ZSPay;
+use Dayglor\Z4Money\Models\Z4money;
 use Illuminate\Http\Request;
 
-class ZSPayController extends Controller
+
+class Z4moneyController extends Controller
 {
     private static $uri = 'https://api.zsystems.com.br/';
     private static $devuri = 'https://api.zsystems.com.br/';
 
     public function index()
     {
-    	return view('ZSPay::contact');
+    	return view('z4money::contact');
     }
 
     private static function makeRequest( $action, $type, $data = false){
 
         //phpinfo();
         //die();  
-        $token = env('ZSPayToken', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635');
-        $env = env('ZSPayEnviroment', 'development');
+        $token = env('Z4_TOKEN', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635');
+        $env = env('Z4_ENV', 'development');
         $url = SELF::$uri;
 
         if(!$token){ throw new \Error('Nenhum token está definido'); }
@@ -62,7 +70,28 @@ class ZSPayController extends Controller
         return json_decode($output);
     }
 
-    public static function criarCliente ($cliente) 
+    /**
+     * Pesquisa um cliente por CPF/CNPJ
+     */
+    public static function searchClientByDocument ($document) 
+    {
+        $cliente = self::makeRequest(`clientes/por_documento/${documento}`, 'get');
+
+
+        if(!$cliente->success){
+            if(isset($cliente->errors)){
+                throw new \Exception( implode(' - ', $cliente->errors));
+            }
+            throw new \Exception($cliente->error);
+        }
+
+        return $cliente->cliente;
+    }
+
+    /**
+     * Cadastra um cliente por CPF/CNPJ
+     */
+    public static function postClient ($cliente) 
     {
         $cliente = self::makeRequest('clientes', 'post', $cliente);
 
@@ -77,69 +106,102 @@ class ZSPayController extends Controller
         return $cliente->cliente;
     }
 
-    public static function cadastrarCartao ($clienteId, $dataCartao)
+    /**
+     * Vincula um cartão a um cliente.
+     */
+    public static function postCard ($clienteId, $dataCartao)
     {
         $cartao = self::makeRequest('clientes/'.$clienteId.'/cartoes', 'post', $dataCartao);
         return $cartao;
     }
 
-    public static function vendaBoleto( $data )
+    /**
+     * Realiza uma venda por boleto
+     */
+    public static function postSaleTicket( $data )
     {
         $data['tipoPagamentoId'] = 1;
         $venda = self::makeRequest('vendas', 'post', $data);
         return $venda;
     }
 
-    public static function vendaCredito ($data)
+    /**
+     * Realiza uma venda por cartão de crédito
+     */
+    public static function postSaleCredit ($data)
     {   
         $data['tipoPagamentoId'] = 3;
         $venda = self::makeRequest('vendas', 'post', $data);
         return $venda;
     }
 
-    public static function estornarVenda ($vendaId)
+    /**
+     * Realiza o estorno de uma venda
+     */
+    public static function reverseSale ($vendaId)
     {
         $estorno = self::makeRequest('vendas/'.$vendaId.'/estornar', 'post');
         return $estorno;
     }
 
-    public static function cadastrarPlano ($data)
+    /**
+     * Cadastra um plano
+     */
+    public static function postPlan ($data)
     {
         $plano = self::makeRequest('planos', 'post', $data);
         return $plano;
     }
 
-    public static function atualizarPlano ($data, $planoId)
+    /**
+     * Atualiza um plano
+     */
+    public static function updatePlan ($data, $planoId)
     {
         $plano = self::makeRequest('planos/'.$planoId, 'put', $data);
         return $plano;
     }
 
-    public static function assinarPlano ($data)
+    /**
+     * Assina um plano
+     */
+    public static function signPlan ($data)
     {
         $assinatura = self::makeRequest('planos/assinar', 'post', $data);
         return $assinatura;
     }
 
-    public static function suspenderAssinatura ($data)
+    /**
+     * Suspender uma assinatura
+     */
+    public static function suspendSubscription ($data)
     {
         $assinatura = self::makeRequest('planos/assinatura/suspender', 'post', $data);
         return $assinatura;
     }
 
-    public static function reativarAssinatura ($data)
+    /**
+     * Reativar uma assinatura
+     */
+    public static function activeSubscription ($data)
     {
         $assinatura = self::makeRequest('planos/assinatura/reativar', 'post', $data);
         return $assinatura;
     }
 
-    public static function removerAssinatura ($assinaturaId)
+    /**
+     * Remover uma assinatura
+     */
+    public static function removeSubscription ($assinaturaId)
     {
         $assinatura = self::makeRequest('planos/assinatura/'.$assinaturaId, 'delete');
         return $assinatura;
     }
 
-    public static function editarAssinatura ($data, $assinaturaId)
+    /**
+     * Atualizar uma assinatura
+     */
+    public static function updateSubscription ($data, $assinaturaId)
     {
         $assinatura = self::makeRequest('planos/assinatura/'.$assinaturaId, 'put', $data);
         return $assinatura;
