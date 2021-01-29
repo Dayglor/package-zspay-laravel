@@ -23,17 +23,15 @@ class Z4moneyController extends Controller
     	return view('z4money::contact');
     }
 
-    private static function makeRequest( $action, $type, $data = false){
-
-        //phpinfo();
-        //die();  
-        $token = env('Z4_TOKEN', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635');
+    private static function makeRequest( $action, $type, $data = false) 
+    {
+        $token = env('Z4_TOKEN', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635'); // Sandbox
         $env = env('Z4_ENV', 'development');
         $url = SELF::$uri;
 
-        if(!$token){ throw new \Error('Nenhum token está definido'); }
+        if (!$token) { throw new \Error('Nenhum token está definido'); }
 
-        if($env === 'development') {
+        if ($env !== 'production') {
             $url = SELF::$devuri;
         }
 
@@ -42,7 +40,7 @@ class Z4moneyController extends Controller
         // SSL important
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 
-        if($type === 'post' || $type == 'put')
+        if ($type === 'post' || $type == 'put')
         {
             curl_setopt($ch, CURLOPT_POST, 1);
             if( $data ){
