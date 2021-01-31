@@ -7,9 +7,9 @@
  * @docs Cliente - https://docs.zspay.com.br/#client
  */
 
-namespace Dayglor\Z4Money\Http\Controllers;
+namespace Dayglor\ZSPay\Http\Controllers;
 use App\Http\Controllers\Controller;
-use Dayglor\Z4Money\Models\Z4money;
+use Dayglor\ZSPay\Models\ZSPay;
 use Illuminate\Http\Request;
 
 
@@ -20,7 +20,7 @@ class ZSPayController extends Controller
 
     public function index()
     {
-    	return view('z4money::contact');
+    	return view('ZSPay::contact');
     }
 
     private static function makeRequest( $action, $type, $data = false) 
