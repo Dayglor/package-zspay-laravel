@@ -13,7 +13,7 @@ use Dayglor\Z4Money\Models\Z4money;
 use Illuminate\Http\Request;
 
 
-class Z4moneyController extends Controller
+class ZSPayController extends Controller
 {
     private static $uri = 'https://api.zsystems.com.br/';
     private static $devuri = 'https://api.zsystems.com.br/';
