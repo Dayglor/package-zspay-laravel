@@ -19,7 +19,7 @@
 
 ###
 
-### Depois disso, para utilizar o package basta chamar o arquivo "use Dayglor\ZSPay\Http\Controllers\ZSPayController as ZSPay;"
+### Depois disso, para utilizar o package basta chamar o arquivo "use Dayglor\ZSPay\Http\Controllers\ClientController;"
 ###
 
 ###
@@ -27,16 +27,6 @@
 #  Exemplos de chamadas:
 ###
 
-### ZSPay::searchClientByDocument($data)
-### ZSPay::postClient($data); 
-### ZSPay::postCard($data); 
-### ZSPay::postSaleTicket($data);  - Venda no boleto
-### ZSPay::postSaleCredit($data);  - Venda no cartão de crédito
-### ZSPay::reverseSale($data); 
-### ZSPay::postPlan($data); 
-### ZSPay::updatePlan($data); 
-### ZSPay::signPlan($data); 
-### ZSPay::suspendSubscription($data); 
-### ZSPay::activeSubscription($data); 
-### ZSPay::removeSubscription($data); 
-### ZSPay::updateSubscription($data); 
+### ClientController::searchClientByDocument($data)
+### ClientController::postClient($data); 
+### ClientController::postCard($data); 
