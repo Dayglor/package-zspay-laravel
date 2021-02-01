@@ -27,6 +27,6 @@
 #  Exemplos de chamadas:
 ###
 
-### ClientController::searchClientByDocument($data)
-### ClientController::postClient($data); 
-### ClientController::postCard($data); 
+#### ClientController::searchClientByDocument($data)
+#### ClientController::postClient($data); 
+#### ClientController::postCard($data); 
