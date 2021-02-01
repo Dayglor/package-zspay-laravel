@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use Dayglor\ZSPay\Models\ZSPay;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+
 
 class ZSPayController extends Controller
 {
@@ -70,11 +72,18 @@ class ZSPayController extends Controller
      */
     public static function searchClientByDocument ($document) 
     {
+        if (!$document) 
+        {
+            throw new \Exception('Informe o número do documento');
+        }
+
         $cliente = self::makeRequest("clientes/por_documento/${document}", 'get');
 
 
-        if(!$cliente->success){
-            if(isset($cliente->errors)){
+        if (!$cliente->success) 
+        {
+            if (isset($cliente->errors)) 
+            {
                 throw new \Exception( implode(' - ', $cliente->errors));
             }
             throw new \Exception('Cliente não encontrado');
@@ -88,13 +97,36 @@ class ZSPayController extends Controller
      */
     public static function postClient ($cliente) 
     {
+
+        $dataClientRequired = ['nome', 'documento', 'dataNascimento', 'email', 'celular', 'sexo'];
+        $dataAddressRequired = ['logradouro', 'numero', 'cep', 'cidade', 'estado', 'complemento'];
+
+        $validator = Validator::make($client, [
+            'nome' => 'required',
+            'documento' => 'required',
+            'dataNascimento' => 'required',
+            'email' => 'required',
+            'celular' => 'required',
+            'sexo' => 'required|max:1',
+            'endereco.logradouro' => 'required',
+            'endereco.numero' => 'required',
+            'endereco.cep' => 'required',
+            'endereco.cidade' => 'required',
+            'endereco.estado' => 'required',
+        ]);
+
+        if ($validator->fails()) 
+        {
+            dd($validator);
+        }
+
         $cliente = self::makeRequest('clientes', 'post', $cliente);
 
-
-        if(!$cliente->success){
+        if (!$cliente->success) {
             if(isset($cliente->errors)){
                 throw new \Exception( implode(' - ', $cliente->errors));
             }
+            
             throw new \Exception($cliente->error);
         }
         return $cliente->cliente;
