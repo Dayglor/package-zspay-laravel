@@ -77,7 +77,7 @@ class ZSPayController extends Controller
             if(isset($cliente->errors)){
                 throw new \Exception( implode(' - ', $cliente->errors));
             }
-            throw new \Exception($cliente->error);
+            throw new \Exception('Cliente não encontrado');
         }
 
         return $cliente->cliente;
@@ -97,7 +97,6 @@ class ZSPayController extends Controller
             }
             throw new \Exception($cliente->error);
         }
-
         return $cliente->cliente;
     }
 
