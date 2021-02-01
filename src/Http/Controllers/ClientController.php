@@ -50,10 +50,6 @@ class ClientController extends Controller
      */
     public static function postClient ($cliente) 
     {
-
-        $dataClientRequired = ['nome', 'documento', 'dataNascimento', 'email', 'celular', 'sexo'];
-        $dataAddressRequired = ['logradouro', 'numero', 'cep', 'cidade', 'estado', 'complemento'];
-
         $validator = Validator::make($client, [
             'nome' => 'required',
             'documento' => 'required',
@@ -90,6 +86,18 @@ class ClientController extends Controller
      */
     public static function postCard ($clienteId, $dataCartao)
     {
+        $validator = Validator::make($client, [
+            'numero' => 'required|numeric',
+            'titular' => 'required|min:3',
+            'codigoSeguranca' => 'required|max:4|min:3',
+            'validade' => 'required|min:7',
+        ]);
+
+        if ($validator->fails()) 
+        {
+            dd($validator);
+        }
+
         $cartao = ZSPayController::makeRequest('clientes/'.$clienteId.'/cartoes', 'post', $dataCartao);
         return $cartao;
     }
