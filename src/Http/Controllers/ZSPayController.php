@@ -70,7 +70,7 @@ class ZSPayController extends Controller
      */
     public static function searchClientByDocument ($document) 
     {
-        $cliente = self::makeRequest(`clientes/por_documento/${document}`, 'get');
+        $cliente = self::makeRequest("clientes/por_documento/${document}", 'get');
 
 
         if(!$cliente->success){
