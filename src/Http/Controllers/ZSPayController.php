@@ -45,7 +45,8 @@ class ZSPayController extends Controller
         if ($type === 'post' || $type == 'put')
         {
             curl_setopt($ch, CURLOPT_POST, 1);
-            if( $data ){
+            if ( $data )
+            {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data) ); 
             }
 
