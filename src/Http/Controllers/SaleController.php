@@ -22,6 +22,19 @@ class SaleController extends Controller
      */
     public static function postSaleTicket( $data )
     {
+
+        $validator = Validator::make($data, [
+            'valor' => 'required',
+            'parcelas' => 'required',
+            'clientId' => 'required',
+            'cartaoId' => 'required',
+        ]);
+
+        if ($validator->fails()) 
+        {
+            throw new \Exception($validator->all()[0]);
+        }
+
         $data['tipoPagamentoId'] = 1;
         $venda = ZSPayController::makeRequest('vendas', 'post', $data);
         return $venda;
@@ -32,6 +45,19 @@ class SaleController extends Controller
      */
     public static function postSaleCredit ($data)
     {   
+
+        $validator = Validator::make($data, [
+            'valor' => 'required',
+            'parcelas' => 'required',
+            'clientId' => 'required',
+            'cartaoId' => 'required',
+        ]);
+
+        if ($validator->fails()) 
+        {
+            throw new \Exception($validator->all()[0]);
+        }
+
         $data['tipoPagamentoId'] = 3;
         $venda = ZSPayController::makeRequest('vendas', 'post', $data);
         return $venda;
@@ -42,6 +68,11 @@ class SaleController extends Controller
      */
     public static function reverseSale ($vendaId)
     {
+        if (!$vendaId) 
+        {
+            throw new \Exception('Informe o ID da venda');
+        }
+
         $estorno = ZSPayController::makeRequest('vendas/'.$vendaId.'/estornar', 'post');
         return $estorno;
     }
