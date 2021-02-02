@@ -25,7 +25,7 @@ class ZSPayController extends Controller
     	return view('ZSPay::contact');
     }
 
-    private static function makeRequest( $action, $type, $data = false) 
+    public static function makeRequest( $action, $type, $data = false) 
     {
         $token = env('Z4_TOKEN', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635'); // Sandbox
         $env = env('Z4_ENV', 'development');
