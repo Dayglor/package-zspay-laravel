@@ -39,7 +39,9 @@ class ClientController extends Controller
             {
                 throw new \Exception( implode(' - ', $cliente->errors));
             }
-            throw new \Exception('Cliente não encontrado');
+
+            return false;
+            // throw new \Exception('Cliente não encontrado');
         }
 
         return $cliente->cliente;

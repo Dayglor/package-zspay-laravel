@@ -27,8 +27,8 @@ class ZSPayController extends Controller
 
     public static function makeRequest( $action, $type, $data = false) 
     {
-        $token = env('Z4_TOKEN', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635'); // Sandbox
-        $env = env('Z4_ENV', 'development');
+        $token = env('ZS_TOKEN', 'f3bd8a2cabbeee52713c35f4bcc00775035a9635'); // Sandbox
+        $env = env('ZS_ENV', 'development');
         $url = SELF::$uri;
 
         if (!$token) { throw new \Error('Nenhum token está definido'); }
