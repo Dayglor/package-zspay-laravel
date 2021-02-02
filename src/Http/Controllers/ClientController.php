@@ -50,7 +50,7 @@ class ClientController extends Controller
     /**
      * Cadastra um cliente por CPF/CNPJ
      */
-    public static function postClient ($cliente) 
+    public static function postClient ($client) 
     {
         $validator = Validator::make($client, [
             'nome' => 'required',
@@ -71,16 +71,16 @@ class ClientController extends Controller
             dd($validator);
         }
 
-        $cliente = ZSPayController::makeRequest('clientes', 'post', $cliente);
+        $newClient = ZSPayController::makeRequest('clientes', 'post', $client);
 
-        if (!$cliente->success) {
-            if(isset($cliente->errors)){
-                throw new \Exception( implode(' - ', $cliente->errors));
+        if (!$newClient->success) {
+            if(isset($newClient->errors)){
+                throw new \Exception( implode(' - ', $newClient->errors));
             }
             
-            throw new \Exception($cliente->error);
+            throw new \Exception($newClient->error);
         }
-        return $cliente->cliente;
+        return $newClient->cliente;
     }
 
     /**
