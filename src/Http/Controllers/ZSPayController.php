@@ -54,6 +54,11 @@ class ZSPayController extends Controller
             {
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST,  'PUT');
             }
+
+            if($type == 'delete')
+            {
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST,  'DELETE');
+            }
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
