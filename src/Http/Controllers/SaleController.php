@@ -32,7 +32,7 @@ class SaleController extends Controller
 
         if ($validator->fails()) 
         {
-            throw new \Exception($validator->all()[0]);
+            throw new \Exception($validator->errors()->all()[0]);
         }
 
         $data['tipoPagamentoId'] = 1;
@@ -55,7 +55,7 @@ class SaleController extends Controller
 
         if ($validator->fails()) 
         {
-            throw new \Exception($validator->all()[0]);
+            throw new \Exception($validator->errors()->all()[0]);
         }
 
         $data['tipoPagamentoId'] = 3;

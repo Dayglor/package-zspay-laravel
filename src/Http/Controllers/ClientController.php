@@ -68,7 +68,7 @@ class ClientController extends Controller
 
         if ($validator->fails()) 
         {
-            throw new \Exception($validator->all()[0]);
+            throw new \Exception($validator->errors()->all()[0]);
         }
 
         $newClient = ZSPayController::makeRequest('clientes', 'post', $client);
@@ -97,7 +97,7 @@ class ClientController extends Controller
 
         if ($validator->fails()) 
         {
-            throw new \Exception($validator->all()[0]);
+            throw new \Exception($validator->errors()->all()[0]);
         }
 
         $cartao = ZSPayController::makeRequest('clientes/'.$clienteId.'/cartoes', 'post', $dataCartao);

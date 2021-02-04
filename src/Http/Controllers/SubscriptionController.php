@@ -44,7 +44,7 @@ class SubscriptionController extends Controller
 
         if ($validator->fails()) 
         {
-            throw new \Exception($validator->all()[0]);
+            throw new \Exception($validator->errors()->all()[0]);
         }
 
         $assinatura = ZSPayController::makeRequest('planos/assinar', 'post', $data);
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
 
         if ($validator->fails()) 
         {
-            throw new \Exception($validator->all()[0]);
+            throw new \Exception($validator->errors()->all()[0]);
         }
 
         $assinatura = ZSPayController::makeRequest('planos/assinatura/suspender', 'post', $data);
@@ -90,7 +90,7 @@ class SubscriptionController extends Controller
 
         if ($validator->fails()) 
         {
-            throw new \Exception($validator->all()[0]);
+            throw new \Exception($validator->errors()->all()[0]);
         }
         $assinatura = ZSPayController::makeRequest('planos/assinatura/reativar', 'post', $data);
         return $assinatura;
