@@ -88,7 +88,7 @@ class ClientController extends Controller
      */
     public static function postCard ($clienteId, $dataCartao)
     {
-        $validator = Validator::make($client, [
+        $validator = Validator::make($dataCartao, [
             'numero' => 'required|numeric',
             'titular' => 'required|min:3',
             'codigoSeguranca' => 'required|max:4|min:3',
